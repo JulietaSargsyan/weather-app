@@ -64,9 +64,9 @@ function App() {
                         {/* <li>{Math.round(weather.main.temp)}°C</li>
                         <li>{weather.weather[0].main}</li>
                         <li>{weather.wind.speed}km/h</li> */}
-                        <li>{weather.temperature}°C</li>
+                        <li>{weather.temperature}</li>
                         <li>{weather.description}</li>
-                        <li>{weather.wind}km/h</li>
+                        <li>{weather.wind}</li>
                       </ul>
                       
                   </div>
