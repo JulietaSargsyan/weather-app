@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './index.css';
 
 
-const api = {
-    key: 'b7e7f4fd35d3db0c1f437221a1012824',
-    base: 'http://api.openweathermap.org/data/2.5/',
+// const api = {
+//     key: 'b7e7f4fd35d3db0c1f437221a1012824',
+//     base: 'http://api.openweathermap.org/data/2.5/',
 
-}
+// }
 
 
 
@@ -14,16 +14,17 @@ const api = {
 
 function App() {
 
-    const [query, setQuery] = useState('');
+    const [city, setCity] = useState('');
     const [weather, setWeather] = useState({});
 
     const search = (evt) => {
         if(evt.key === "Enter") {
-            fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+            // fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+            fetch(`https://goweather.herokuapp.com/weather/${city}`)
             .then(res => res.json())
             .then(result => {
                 setWeather(result);
-                setQuery('');
+                // setCity('');
                 console.log(result);
             });
         }
@@ -42,31 +43,35 @@ function App() {
 
 
 
+
     return (
         <div className="app">
             <main>
                 <div className="searchBox">
                     <input type="text" id="searchInput" placeholder="City Name..." 
-                      onChange={e => setQuery(e.target.value)} value={query} onKeyPress={search} />
+                      onChange={e => setCity(e.target.value)} value={city} onKeyPress={search} />
                 </div>
-                {(typeof weather.main != "undefined") ? (
+                {(typeof weather.temperature != "undefined") ? (
                 <div>
                   <div className="location">
-                    <h1>{weather.name}</h1>
+                    <h1>{city}</h1>
                   </div>
                   <div className="date">
                     {getCurrentDate(".") }
                   </div>
                   <div className="weather-box">
                       <ul>
-                        <li>{Math.round(weather.main.temp)}°C</li>
+                        {/* <li>{Math.round(weather.main.temp)}°C</li>
                         <li>{weather.weather[0].main}</li>
-                        <li>{weather.wind.speed}km/h</li>
+                        <li>{weather.wind.speed}km/h</li> */}
+                        <li>{weather.temperature}°C</li>
+                        <li>{weather.description}</li>
+                        <li>{weather.wind}km/h</li>
                       </ul>
                       
                   </div>
                 </div>
-                ) : ("")}
+                 ) : ('')} 
             </main>
         </div>
     )
